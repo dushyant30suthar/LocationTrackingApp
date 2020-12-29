@@ -1,4 +1,4 @@
-package app.dushyant30suthar.locationtracking.client;
+package app.dushyant30suthar.locationtracking.client.onboarding;
 
 import android.os.Bundle;
 
