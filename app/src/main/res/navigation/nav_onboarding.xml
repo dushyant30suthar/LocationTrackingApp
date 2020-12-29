@@ -20,16 +20,20 @@
         android:label="ModuleSelectionFragment"
         tools:layout="@layout/fragment_module_selection">
         <action
-            android:id="@+id/action_moduleSelectionFragment_to_producerStateFragment"
-            app:destination="@id/producerStateFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/producerStateFragment"
-        android:name="app.dushyant30suthar.locationtracking.client.producer.ProducerStateFragment"
-        android:label="ProducerStateFragment"
-        tools:layout="@layout/fragment_producer_state">
+            android:id="@+id/action_moduleSelectionFragment_to_consumerActivity"
+            app:destination="@id/consumerActivity" />
         <action
-            android:id="@+id/action_producerStateFragment_to_moduleSelectionFragment"
-            app:destination="@id/moduleSelectionFragment" />
+            android:id="@+id/action_moduleSelectionFragment_to_producerActivity"
+            app:destination="@id/producerActivity" />
     </fragment>
+    <activity
+        android:id="@+id/consumerActivity"
+        android:name="app.dushyant30suthar.locationtracking.client.consumer.ConsumerActivity"
+        android:label="ConsumerActivity"
+        tools:layout="@layout/activity_consumer" />
+    <activity
+        android:id="@+id/producerActivity"
+        android:name="app.dushyant30suthar.locationtracking.client.producer.ProducerActivity"
+        android:label="ProducerActivity"
+        tools:layout="@layout/activity_producer" />
 </navigation>
