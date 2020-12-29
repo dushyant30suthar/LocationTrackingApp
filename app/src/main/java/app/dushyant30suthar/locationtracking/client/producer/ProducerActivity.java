@@ -1,4 +1,4 @@
-package app.dushyant30suthar.locationtracking.client;
+package app.dushyant30suthar.locationtracking.client.producer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
