@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_onboarding"
     app:startDestination="@id/authenticationFragment">
 
     <fragment
         android:id="@+id/authenticationFragment"
         android:name="app.dushyant30suthar.locationtracking.client.onboarding.AuthenticationFragment"
-        android:label="AuthenticationFragment">
+        android:label="AuthenticationFragment"
+        tools:layout="@layout/fragment_authentication">
         <action
             android:id="@+id/action_authenticationFragment_to_moduleSelectionFragment"
             app:destination="@id/moduleSelectionFragment" />
@@ -15,5 +17,19 @@
     <fragment
         android:id="@+id/moduleSelectionFragment"
         android:name="app.dushyant30suthar.locationtracking.client.onboarding.ModuleSelectionFragment"
-        android:label="ModuleSelectionFragment" />
+        android:label="ModuleSelectionFragment"
+        tools:layout="@layout/fragment_module_selection">
+        <action
+            android:id="@+id/action_moduleSelectionFragment_to_producerStateFragment"
+            app:destination="@id/producerStateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/producerStateFragment"
+        android:name="app.dushyant30suthar.locationtracking.client.producer.ProducerStateFragment"
+        android:label="ProducerStateFragment"
+        tools:layout="@layout/fragment_producer_state">
+        <action
+            android:id="@+id/action_producerStateFragment_to_moduleSelectionFragment"
+            app:destination="@id/moduleSelectionFragment" />
+    </fragment>
 </navigation>
