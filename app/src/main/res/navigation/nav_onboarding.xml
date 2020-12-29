@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_onboarding">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_onboarding"
+    app:startDestination="@id/authenticationFragment">
 
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="app.dushyant30suthar.locationtracking.client.onboarding.AuthenticationFragment"
+        android:label="AuthenticationFragment">
+        <action
+            android:id="@+id/action_authenticationFragment_to_moduleSelectionFragment"
+            app:destination="@id/moduleSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moduleSelectionFragment"
+        android:name="app.dushyant30suthar.locationtracking.client.onboarding.ModuleSelectionFragment"
+        android:label="ModuleSelectionFragment" />
 </navigation>
