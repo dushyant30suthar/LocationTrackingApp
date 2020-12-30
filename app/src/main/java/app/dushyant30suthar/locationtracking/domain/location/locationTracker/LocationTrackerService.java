@@ -54,12 +54,16 @@ public class LocationTrackerService extends Service {
 
     @Override
     public void onDestroy() {
-        locationTracker.stopTracking();
+        if (locationTracker != null)
+            locationTracker.stopTracking();
         super.onDestroy();
     }
 
     public boolean isLocationTrackingOngoing() {
-        return locationTracker.getLocationTrackerCurrentState() == LocationTracker.State.ONGOING;
+        if (locationTracker == null) {
+            return false;
+        } else
+            return locationTracker.getLocationTrackerCurrentState() == LocationTracker.State.ONGOING;
     }
 
 

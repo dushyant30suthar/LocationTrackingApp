@@ -39,8 +39,7 @@ public class LocationTrackerController {
         context.stopService(new Intent(context, LocationTrackerService.class));
     }
 
-    public boolean isLocationTrackingOngoing(Context context) {
-        final boolean[] isLocationTrackingOngoing = {false};
+    public void isLocationTrackingOngoing(Context context, LocationTrackerControllerEventsListener locationTrackerControllerEventsListener) {
         final ServiceConnection connection = new ServiceConnection() {
 
             @Override
@@ -48,7 +47,12 @@ public class LocationTrackerController {
                                            IBinder service) {
                 LocationTrackerService.TrackLocationBinder binder = (LocationTrackerService.TrackLocationBinder) service;
                 LocationTrackerService locationTrackerService = binder.getService();
-                isLocationTrackingOngoing[0] = locationTrackerService.isLocationTrackingOngoing();
+                if (locationTrackerService.isLocationTrackingOngoing()) {
+                    locationTrackerControllerEventsListener.onLocationTrackingOngoing();
+                } else {
+                    locationTrackerControllerEventsListener.onLocationTrackingNotOngoing();
+                }
+
                 context.unbindService(this);
             }
 
@@ -58,7 +62,12 @@ public class LocationTrackerController {
         };
         Intent intent = new Intent(context, LocationTrackerService.class);
         context.bindService(intent, connection, Context.BIND_AUTO_CREATE);
-        return isLocationTrackingOngoing[0];
+    }
+
+    public interface LocationTrackerControllerEventsListener {
+        void onLocationTrackingOngoing();
+
+        void onLocationTrackingNotOngoing();
     }
 
 }

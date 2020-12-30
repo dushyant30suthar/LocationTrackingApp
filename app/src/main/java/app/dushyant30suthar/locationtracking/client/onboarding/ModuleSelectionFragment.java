@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import app.dushyant30suthar.locationtracking.R;
 import app.dushyant30suthar.locationtracking.domain.location.locationTracker.LocationTrackerController;
@@ -46,6 +47,8 @@ public class ModuleSelectionFragment extends Fragment {
 
         startSharingButton.setOnClickListener(v -> {
             LocationTrackerController.getInstance().startLocationTracking(getContext());
+            Navigation.findNavController(getActivity(), R.id.onboardingNavHost).navigate(R.id.action_moduleSelectionFragment_to_producerActivity);
+            getActivity().finish();
         });
 
         startWatchingButton.setOnClickListener(v -> {

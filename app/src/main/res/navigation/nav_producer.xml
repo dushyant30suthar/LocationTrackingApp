@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_producer"
+    app:startDestination="@id/producerStateFragment">
+
+    <fragment
+        android:id="@+id/producerStateFragment"
+        android:name="app.dushyant30suthar.locationtracking.client.producer.ProducerStateFragment"
+        android:label="ProducerStateFragment"
+        tools:layout="@layout/fragment_producer_state">
+        <action
+            android:id="@+id/action_producerStateFragment_to_onboardingActivity"
+            app:destination="@id/onboardingActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/onboardingActivity"
+        android:name="app.dushyant30suthar.locationtracking.client.onboarding.OnboardingActivity"
+        android:label="OnboardingActivity"
+        tools:layout="@layout/activity_onboarding" />
+</navigation>
