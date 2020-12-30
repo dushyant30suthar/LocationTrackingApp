@@ -13,7 +13,7 @@ import android.os.IBinder;
  * ON or OFF. Also we can start and stop tracking using binding only.*/
 
 
-public class TrackLocationService extends Service {
+public class LocationTrackerService extends Service {
 
     private final IBinder binder = new TrackLocationBinder();
     private LocationTracker locationTracker;
@@ -35,9 +35,14 @@ public class TrackLocationService extends Service {
         super.onDestroy();
     }
 
+    public boolean isLocationTrackingOngoing() {
+        return locationTracker.getLocationTrackerState() == LocationTracker.State.ONGOING;
+    }
+
+
     public class TrackLocationBinder extends Binder {
-        TrackLocationService getService() {
-            return TrackLocationService.this;
+        LocationTrackerService getService() {
+            return LocationTrackerService.this;
         }
     }
 }

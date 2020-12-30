@@ -17,6 +17,9 @@ class LocationTracker {
         locationTrackerState = State.TERMINATED;
     }
 
+    /*
+     * LocationTracker should have just one instance. There should not be any
+     * two location tracker working together.*/
     public static LocationTracker getInstance() {
         if (locationTracker == null) {
             locationTracker = new LocationTracker();
@@ -31,6 +34,11 @@ class LocationTracker {
 
     public void stopTracking() {
         locationTrackerState = State.TERMINATED;
+    }
+
+    @NonNull
+    public State getLocationTrackerState() {
+        return locationTrackerState;
     }
 
     enum State {

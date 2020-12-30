@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".domain.location.locationTracker.TrackLocationService" />
+        <service android:name=".domain.location.locationTracker.LocationTrackerService" />
     </application>
 
 </manifest>
