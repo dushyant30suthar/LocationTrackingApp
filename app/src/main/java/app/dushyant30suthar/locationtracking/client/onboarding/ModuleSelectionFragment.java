@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment;
 
 import app.dushyant30suthar.locationtracking.R;
 
-class ModuleSelectionFragment extends Fragment {
+public class ModuleSelectionFragment extends Fragment {
+
+    public ModuleSelectionFragment() {
+    }
 
     @Nullable
     @Override

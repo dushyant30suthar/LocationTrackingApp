@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment;
 
 import app.dushyant30suthar.locationtracking.R;
 
-class LocationTrackingFragment extends Fragment {
+public class LocationTrackingFragment extends Fragment {
+
+    public LocationTrackingFragment() {
+    }
 
     @Nullable
     @Override
