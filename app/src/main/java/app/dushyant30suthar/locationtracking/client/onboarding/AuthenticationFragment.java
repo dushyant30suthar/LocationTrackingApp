@@ -44,15 +44,22 @@ public class AuthenticationFragment extends Fragment {
         groupIdEditText = view.findViewById(R.id.groupIdEditText);
         establishButton = view.findViewById(R.id.establishButton);
         establishButton.setOnClickListener(v -> {
+            groupIdEditText.setEnabled(false);
+            establishButton.setEnabled(false);
+            Toast.makeText(getContext(), "Just a sec.", Toast.LENGTH_SHORT).show();
             authenticationManager = AuthenticationManager.getInstance(groupIdEditText.getText().toString());
             authenticationManager.connectToGroup(new AuthenticationManager.OnConnectionStateChangeListener() {
                 @Override
                 public void onConnectionSuccessful() {
+                    establishButton.setEnabled(true);
+                    groupIdEditText.setEnabled(true);
                     Navigation.findNavController(getActivity(), R.id.onboardingNavHost).navigate(R.id.action_authenticationFragment_to_moduleSelectionFragment);
                 }
 
                 @Override
                 public void onConnectionFailed() {
+                    establishButton.setEnabled(true);
+                    groupIdEditText.setEnabled(true);
                     Toast.makeText(getContext(), "Error connecting server", Toast.LENGTH_LONG).show();
                 }
             });
