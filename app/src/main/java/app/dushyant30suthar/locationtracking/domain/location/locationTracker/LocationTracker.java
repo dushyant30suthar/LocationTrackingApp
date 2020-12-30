@@ -19,6 +19,7 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 
+import app.dushyant30suthar.locationtracking.domain.authentication.AuthenticationManager;
 import app.dushyant30suthar.locationtracking.domain.location.LocationDao;
 
 /*
@@ -85,6 +86,11 @@ class LocationTracker {
     }
 
     public void stopTracking() {
+        try {
+            AuthenticationManager.getInstance().disconnectFromGroup();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         fusedLocationClient.removeLocationUpdates(locationCallback);
         locationTrackerCurrentState = State.TERMINATED;
     }
@@ -101,7 +107,7 @@ class LocationTracker {
     private Task<LocationSettingsResponse> setUpLocationClient(Context context) {
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(15000);
-        locationRequest.setFastestInterval(3000);
+        locationRequest.setFastestInterval(0);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
 
