@@ -6,19 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import app.dushyant30suthar.locationtracking.R;
 import app.dushyant30suthar.locationtracking.domain.authentication.AuthenticationManager;
 
-class AuthenticationFragment extends Fragment {
+public class AuthenticationFragment extends Fragment {
 
     private EditText groupIdEditText;
     private Button establishButton;
     private AuthenticationManager authenticationManager;
+
+    /*
+     * Must have constructor for fragment.*/
+    public AuthenticationFragment() {
+    }
 
     @Nullable
     @Override
@@ -38,7 +45,17 @@ class AuthenticationFragment extends Fragment {
         establishButton = view.findViewById(R.id.establishButton);
         establishButton.setOnClickListener(v -> {
             authenticationManager = AuthenticationManager.getInstance(groupIdEditText.getText().toString());
+            authenticationManager.connectToGroup(new AuthenticationManager.OnConnectionStateChangeListener() {
+                @Override
+                public void onConnectionSuccessful() {
+                    Navigation.findNavController(getActivity(), R.id.onboardingNavHost).navigate(R.id.action_authenticationFragment_to_moduleSelectionFragment);
+                }
 
+                @Override
+                public void onConnectionFailed() {
+                    Toast.makeText(getContext(), "Error connecting server", Toast.LENGTH_LONG).show();
+                }
+            });
         });
     }
 }

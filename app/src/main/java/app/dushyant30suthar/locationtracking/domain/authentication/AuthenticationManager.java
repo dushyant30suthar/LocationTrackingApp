@@ -50,7 +50,7 @@ public class AuthenticationManager {
 
         Map<String, Object> postValues = user.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/" + DATABASE_ROOT + "/" + currentUserId, postValues);
+        childUpdates.put("/" + "users" + "/" + currentUserId, postValues);
 
         databaseReference.updateChildren(childUpdates)
                 .addOnCompleteListener(command -> onConnectionStateChangeListener.onConnectionSuccessful())
@@ -65,7 +65,7 @@ public class AuthenticationManager {
     }
 
 
-    interface OnConnectionStateChangeListener {
+    public interface OnConnectionStateChangeListener {
 
         void onConnectionSuccessful();
 

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import app.dushyant30suthar.locationtracking.R;
 
-class OnboardingActivity extends AppCompatActivity {
+public class OnboardingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
