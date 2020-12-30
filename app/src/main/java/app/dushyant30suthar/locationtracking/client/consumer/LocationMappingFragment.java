@@ -22,4 +22,18 @@ public class LocationMappingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_location_mapping, container, false);
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setUpViews(view);
+    }
+
+    private void setUpViews(View view) {
+
+    }
+
+    private void startWatchingUsers() {
+
+    }
 }

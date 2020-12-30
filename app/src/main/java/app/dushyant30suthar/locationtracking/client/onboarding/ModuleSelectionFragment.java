@@ -52,7 +52,8 @@ public class ModuleSelectionFragment extends Fragment {
         });
 
         startWatchingButton.setOnClickListener(v -> {
-
+            Navigation.findNavController(getActivity(), R.id.onboardingNavHost).navigate(R.id.action_moduleSelectionFragment_to_consumerActivity);
+            getActivity().finish();
         });
 
 
