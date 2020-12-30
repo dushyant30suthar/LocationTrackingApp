@@ -91,7 +91,8 @@ class LocationTracker {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        fusedLocationClient.removeLocationUpdates(locationCallback);
+        if (fusedLocationClient != null)
+            fusedLocationClient.removeLocationUpdates(locationCallback);
         locationTrackerCurrentState = State.TERMINATED;
     }
 
@@ -106,7 +107,9 @@ class LocationTracker {
 
     private Task<LocationSettingsResponse> setUpLocationClient(Context context) {
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(15000);
+        /*
+         * For testing I made it for 6 seconds because it was very slow so wasn't able to test. */
+        locationRequest.setInterval(6000);
         locationRequest.setFastestInterval(0);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 

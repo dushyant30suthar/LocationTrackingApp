@@ -1,5 +1,6 @@
 package app.dushyant30suthar.locationtracking.domain.location.locationReceiver;
 
+import app.dushyant30suthar.locationtracking.domain.authentication.AuthenticationManager;
 import app.dushyant30suthar.locationtracking.domain.location.LocationDao;
 
 public class LocationReceiverController {
@@ -25,5 +26,11 @@ public class LocationReceiverController {
 
     public void stopReceivingUsersLocationUpdates() {
         locationDao.removeOnLocationUpdateListener();
+
+        try {
+            AuthenticationManager.getInstance().disconnectFromGroup();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

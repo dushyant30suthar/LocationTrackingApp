@@ -71,7 +71,7 @@ public class AuthenticationManager {
     /*
      * Delete user from the group.*/
     public void disconnectFromGroup() {
-        databaseReference.child(currentUserId).removeValue();
+        databaseReference.child("users").child(currentUserId).removeValue();
     }
 
     public DatabaseReference getDatabaseReferenceToGroup() {
