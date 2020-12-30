@@ -43,8 +43,12 @@ class AuthenticationManager {
 
     /*
      * Creates new entity in the database for user. We will hold the key for updating the user location,
-     * deleting the user after it stops sharing location.*/
-    public void connectToGroup() {
+     * deleting the user after it stops sharing location.
+     *
+     * Returns the reference to the current user.
+     *
+     * We can pass this reference to the other modules to interact with this api. */
+    public DatabaseReference connectToGroup() {
         currentUserId = databaseReference.push().getKey();
         User user = new User("");
 
@@ -53,6 +57,8 @@ class AuthenticationManager {
         childUpdates.put("/" + DATABASE_ROOT + "/" + currentUserId, postValues);
 
         databaseReference.updateChildren(childUpdates);
+
+        return databaseReference.child(currentUserId);
     }
 
 }
