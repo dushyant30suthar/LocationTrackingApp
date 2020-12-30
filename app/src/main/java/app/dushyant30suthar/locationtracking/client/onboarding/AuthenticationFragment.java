@@ -44,6 +44,10 @@ public class AuthenticationFragment extends Fragment {
         groupIdEditText = view.findViewById(R.id.groupIdEditText);
         establishButton = view.findViewById(R.id.establishButton);
         establishButton.setOnClickListener(v -> {
+            if (groupIdEditText.getText().toString().isEmpty()) {
+                Toast.makeText(getContext(), "Please enter user Id", Toast.LENGTH_SHORT).show();
+                return;
+            }
             groupIdEditText.setEnabled(false);
             establishButton.setEnabled(false);
             Toast.makeText(getContext(), "Just a sec.", Toast.LENGTH_SHORT).show();
