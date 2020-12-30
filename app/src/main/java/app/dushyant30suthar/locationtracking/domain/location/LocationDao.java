@@ -27,7 +27,7 @@ public class LocationDao implements ValueEventListener {
         try {
             authenticationManager = AuthenticationManager.getInstance();
             this.currentUser = authenticationManager.getCurrentUserId();
-            this.databaseReference = authenticationManager.getDatabaseReferenceToGroup();
+            this.databaseReference = authenticationManager.getDatabaseReferenceToGroup().child("users");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Not a valid connection to the server");

@@ -100,8 +100,8 @@ class LocationTracker {
 
     private Task<LocationSettingsResponse> setUpLocationClient(Context context) {
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(0);
-        locationRequest.setFastestInterval(0);
+        locationRequest.setInterval(15000);
+        locationRequest.setFastestInterval(3000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
 
@@ -114,7 +114,6 @@ class LocationTracker {
                 super.onLocationResult(locationResult);
                 if (locationResult.getLocations().size() == 0)
                     return;
-                fusedLocationClient.removeLocationUpdates(this);
                 Location location = locationResult.getLocations().get(locationResult.getLocations().size() - 1);
                 onLocationUpdate(location);
             }
