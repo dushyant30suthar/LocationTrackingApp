@@ -2,7 +2,7 @@ package app.dushyant30suthar.locationtracking.domain.location.locationReceiver;
 
 import app.dushyant30suthar.locationtracking.domain.location.LocationDao;
 
-class LocationReceiverController {
+public class LocationReceiverController {
     private static LocationReceiverController locationReceiverController;
     private final LocationDao.OnUsersLocationUpdateListener onUsersLocationUpdateListener;
     private final LocationDao locationDao;
@@ -23,7 +23,7 @@ class LocationReceiverController {
         locationDao.addOnLocationUpdateListener(onUsersLocationUpdateListener);
     }
 
-    public void stopReceivingUsersLocationUpdatesFor() {
+    public void stopReceivingUsersLocationUpdates() {
         locationDao.removeOnLocationUpdateListener();
     }
 }
