@@ -1,4 +1,4 @@
-package app.dushyant30suthar.locationtracking.domain;
+package app.dushyant30suthar.locationtracking.domain.locationTracker;
 
 import android.app.Service;
 import android.content.Intent;
