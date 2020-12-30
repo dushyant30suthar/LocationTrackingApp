@@ -39,6 +39,14 @@ public class AuthenticationManager {
         return authenticationManager;
     }
 
+    public static AuthenticationManager getInstance() throws IllegalAccessException {
+        if (authenticationManager == null) {
+            throw new IllegalAccessException("First establish connection to the server.");
+        } else {
+            return authenticationManager;
+        }
+    }
+
     private static AuthenticationManager getNewInstance(String groupId) {
         return new AuthenticationManager(groupId);
     }
@@ -66,6 +74,13 @@ public class AuthenticationManager {
         databaseReference.child(currentUserId).removeValue();
     }
 
+    public DatabaseReference getDatabaseReferenceToGroup() {
+        return databaseReference;
+    }
+
+    public String getCurrentUserId() {
+        return currentUserId;
+    }
 
     public interface OnConnectionStateChangeListener {
 

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import app.dushyant30suthar.locationtracking.R;
 
-class ProducerActivity extends AppCompatActivity {
+public class ProducerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

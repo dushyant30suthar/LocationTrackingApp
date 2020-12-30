@@ -11,9 +11,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.dushyant30suthar.locationtracking.domain.authentication.AuthenticationManager;
 import app.dushyant30suthar.locationtracking.domain.authentication.User;
 
-class LocationDao implements ValueEventListener {
+public class LocationDao implements ValueEventListener {
     private final DatabaseReference databaseReference;
     private final static String TAG = LocationDao.class.getSimpleName();
 
@@ -21,12 +22,19 @@ class LocationDao implements ValueEventListener {
 
     private OnLocationUpdateListener onLocationUpdateListener;
 
-    LocationDao(String currentUser, DatabaseReference databaseReference) {
-        this.currentUser = currentUser;
-        this.databaseReference = databaseReference;
+    public LocationDao() {
+        AuthenticationManager authenticationManager = null;
+        try {
+            authenticationManager = AuthenticationManager.getInstance();
+            this.currentUser = authenticationManager.getCurrentUserId();
+            this.databaseReference = authenticationManager.getDatabaseReferenceToGroup();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Not a valid connection to the server");
+        }
     }
 
-    void updateLocation(Location location) {
+    public void updateLocation(Location location) {
         databaseReference.child(currentUser).child("currentLocation").setValue(location.toString());
     }
 
@@ -36,12 +44,12 @@ class LocationDao implements ValueEventListener {
      * If there is any change in group such as new user is added to the group or any user has
      * updated it's location then we would deliver the lastest data for all of the users
      * which are currently being shown on the screen.*/
-    void addOnLocationUpdateListener(OnLocationUpdateListener onLocationUpdateListener) {
+    public void addOnLocationUpdateListener(OnLocationUpdateListener onLocationUpdateListener) {
         this.onLocationUpdateListener = onLocationUpdateListener;
         databaseReference.addValueEventListener(this);
     }
 
-    void removeOnLocationUpdateListener() {
+    public void removeOnLocationUpdateListener() {
         this.onLocationUpdateListener = null;
         databaseReference.removeEventListener(this);
     }

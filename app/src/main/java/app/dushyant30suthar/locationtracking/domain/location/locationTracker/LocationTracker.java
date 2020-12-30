@@ -17,6 +17,9 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+
+import app.dushyant30suthar.locationtracking.domain.location.LocationDao;
 
 /*
  * The actual location tracker. It holds the state of the tracker.
@@ -37,10 +40,14 @@ class LocationTracker {
     private FusedLocationProviderClient fusedLocationClient;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
+    private final LocationDao locationDao;
+    private DatabaseReference databaseReference;
 
     private LocationTracker(Context context, @NonNull OnLocationTrackerReadyListener onLocationTrackerReadyListener) {
         locationTrackerCurrentState = State.INTERMEDIATE;
+        this.databaseReference = databaseReference;
         this.onLocationTrackerReadyListener = onLocationTrackerReadyListener;
+        locationDao = new LocationDao();
         setUpLocationClient(context).addOnSuccessListener(command -> {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
             locationTrackerCurrentState = State.CONFIGURED;
@@ -54,7 +61,8 @@ class LocationTracker {
     /*
      * LocationTracker should have just one instance. There should not be any
      * two location tracker working together.*/
-    public static LocationTracker getInstance(Context context, OnLocationTrackerReadyListener onLocationTrackerReadyListener) {
+    public static LocationTracker getInstance(Context context,
+                                              OnLocationTrackerReadyListener onLocationTrackerReadyListener) {
         if (locationTracker == null) {
             locationTracker = new LocationTracker(context, onLocationTrackerReadyListener);
         }
@@ -72,17 +80,17 @@ class LocationTracker {
             return;
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback,
                 Looper.getMainLooper());
+        locationTrackerCurrentState = State.ONGOING;
 
     }
 
     public void stopTracking() {
-        locationTrackerCurrentState = State.TERMINATED;
         fusedLocationClient.removeLocationUpdates(locationCallback);
-
+        locationTrackerCurrentState = State.TERMINATED;
     }
 
     private void onLocationUpdate(Location location) {
-
+        locationDao.updateLocation(location);
     }
 
     @NonNull
@@ -92,10 +100,14 @@ class LocationTracker {
 
     private Task<LocationSettingsResponse> setUpLocationClient(Context context) {
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(15000);
-        locationRequest.setFastestInterval(1000);
+        locationRequest.setInterval(0);
+        locationRequest.setFastestInterval(0);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        SettingsClient client = LocationServices.getSettingsClient(context);
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -112,10 +124,6 @@ class LocationTracker {
                 super.onLocationAvailability(locationAvailability);
             }
         };
-
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
-        SettingsClient client = LocationServices.getSettingsClient(context);
         Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
         return task;
     }
