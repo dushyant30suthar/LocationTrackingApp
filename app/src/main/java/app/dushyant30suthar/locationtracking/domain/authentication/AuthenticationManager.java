@@ -55,4 +55,10 @@ class AuthenticationManager {
         databaseReference.updateChildren(childUpdates);
     }
 
+    /*
+     * Delete user from the group.*/
+    public void disconnectFromGroup() {
+        databaseReference.child(currentUserId).removeValue();
+    }
+
 }
