@@ -66,4 +66,8 @@ class LocationDao implements ValueEventListener {
         Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
 
     }
+
+    interface OnLocationUpdateListener {
+        void onLocationUpdate(List<User> userList);
+    }
 }

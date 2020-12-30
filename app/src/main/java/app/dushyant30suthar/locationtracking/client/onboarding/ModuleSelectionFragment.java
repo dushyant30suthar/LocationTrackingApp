@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import app.dushyant30suthar.locationtracking.R;
+import app.dushyant30suthar.locationtracking.domain.location.locationTracker.LocationTrackerController;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -44,7 +45,7 @@ public class ModuleSelectionFragment extends Fragment {
         startWatchingButton = view.findViewById(R.id.startWatchingButton);
 
         startSharingButton.setOnClickListener(v -> {
-
+            LocationTrackerController.getInstance().startLocationTracking(getContext());
         });
 
         startWatchingButton.setOnClickListener(v -> {
