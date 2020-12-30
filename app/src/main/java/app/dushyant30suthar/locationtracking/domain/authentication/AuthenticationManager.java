@@ -8,7 +8,7 @@ import java.util.Map;
 
 /*
  * This module helps all of the modules to get connected at the valid point on the server.*/
-class AuthenticationManager {
+public class AuthenticationManager {
     private static final String DATABASE_ROOT = "groups";
     private static AuthenticationManager authenticationManager;
     private final DatabaseReference databaseReference;
