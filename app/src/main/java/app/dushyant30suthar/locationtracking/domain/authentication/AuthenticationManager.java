@@ -8,7 +8,7 @@ import java.util.Map;
 
 /*
  * This module helps all of the modules to get connected at the valid point on the server.*/
-class AuthenticationManager {
+public class AuthenticationManager {
     private static final String DATABASE_ROOT = "groups";
     private static AuthenticationManager authenticationManager;
     private final DatabaseReference databaseReference;
@@ -44,7 +44,7 @@ class AuthenticationManager {
     /*
      * Creates new entity in the database for user. We will hold the key for updating the user location,
      * deleting the user after it stops sharing location.*/
-    public void connectToGroup() {
+    public void connectToGroup(OnConnectionStateChangeListener onConnectionStateChangeListener) {
         currentUserId = databaseReference.push().getKey();
         User user = new User("");
 
@@ -52,13 +52,24 @@ class AuthenticationManager {
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/" + DATABASE_ROOT + "/" + currentUserId, postValues);
 
-        databaseReference.updateChildren(childUpdates);
+        databaseReference.updateChildren(childUpdates)
+                .addOnCompleteListener(command -> onConnectionStateChangeListener.onConnectionSuccessful())
+                .addOnFailureListener(command -> onConnectionStateChangeListener.onConnectionFailed());
+
     }
 
     /*
      * Delete user from the group.*/
     public void disconnectFromGroup() {
         databaseReference.child(currentUserId).removeValue();
+    }
+
+
+    interface OnConnectionStateChangeListener {
+
+        void onConnectionSuccessful();
+
+        void onConnectionFailed();
     }
 
 }
