@@ -8,7 +8,7 @@ import java.util.Map;
 
 /*
  * This module helps all of the modules to get connected at the valid point on the server.*/
-class AuthenticationManager {
+public class AuthenticationManager {
     private static final String DATABASE_ROOT = "groups";
     private static AuthenticationManager authenticationManager;
     private final DatabaseReference databaseReference;
@@ -45,22 +45,33 @@ class AuthenticationManager {
 
     /*
      * Creates new entity in the database for user. We will hold the key for updating the user location,
-     * deleting the user after it stops sharing location.
-     *
-     * Returns the reference to the current user.
-     *
-     * We can pass this reference to the other modules to interact with this api. */
-    public DatabaseReference connectToGroup() {
+     * deleting the user after it stops sharing location.*/
+    public void connectToGroup(OnConnectionStateChangeListener onConnectionStateChangeListener) {
         currentUserId = databaseReference.push().getKey();
         User user = new User("");
 
         Map<String, Object> postValues = user.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/" + "users" + "/" + currentUserId, postValues);
 
-        childUpdates.put("/" + DATABASE_ROOT + "/" + currentUserId, postValues);
-        databaseReference.updateChildren(childUpdates);
+        databaseReference.updateChildren(childUpdates)
+                .addOnCompleteListener(command -> onConnectionStateChangeListener.onConnectionSuccessful())
+                .addOnFailureListener(command -> onConnectionStateChangeListener.onConnectionFailed());
 
-        return databaseReference;
+    }
+
+    /*
+     * Delete user from the group.*/
+    public void disconnectFromGroup() {
+        databaseReference.child(currentUserId).removeValue();
+    }
+
+
+    public interface OnConnectionStateChangeListener {
+
+        void onConnectionSuccessful();
+
+        void onConnectionFailed();
     }
 
 }

@@ -11,12 +11,15 @@ import androidx.fragment.app.Fragment;
 
 import app.dushyant30suthar.locationtracking.R;
 
-class LocationMappingFragment extends Fragment {
+public class LocationTrackingFragment extends Fragment {
+
+    public LocationTrackingFragment() {
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_location_mapping, container, false);
+        View view = inflater.inflate(R.layout.fragment_location_tracking, container, false);
         return view;
     }
 }

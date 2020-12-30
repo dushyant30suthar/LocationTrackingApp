@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment;
 
 import app.dushyant30suthar.locationtracking.R;
 
-class ProducerStateFragment extends Fragment {
+public class ProducerStateFragment extends Fragment {
+
+    public ProducerStateFragment() {
+    }
 
     @Nullable
     @Override
