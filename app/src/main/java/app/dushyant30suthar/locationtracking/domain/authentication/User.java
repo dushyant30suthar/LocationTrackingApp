@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @IgnoreExtraProperties
-class User {
+public class User {
     String location;
 
     public User() {

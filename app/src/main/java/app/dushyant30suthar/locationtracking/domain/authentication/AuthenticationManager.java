@@ -26,6 +26,8 @@ class AuthenticationManager {
         databaseReference = database.getReference(DATABASE_ROOT).child(currentGroupId);
     }
 
+    /*
+     * Check if getInstance is called for new groupId. If so, then create new instance and return. */
     public static AuthenticationManager getInstance(String groupId) {
         if (authenticationManager == null) {
             authenticationManager = getNewInstance(groupId);
@@ -54,11 +56,11 @@ class AuthenticationManager {
 
         Map<String, Object> postValues = user.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/" + DATABASE_ROOT + "/" + currentUserId, postValues);
 
+        childUpdates.put("/" + DATABASE_ROOT + "/" + currentUserId, postValues);
         databaseReference.updateChildren(childUpdates);
 
-        return databaseReference.child(currentUserId);
+        return databaseReference;
     }
 
 }
