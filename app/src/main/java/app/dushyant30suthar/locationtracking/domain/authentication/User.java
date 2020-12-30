@@ -8,28 +8,28 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 public class User {
-    String location;
+    String currentLocation;
 
     public User() {
 
     }
 
-    public User(String location) {
-        this.location = location;
+    public User(String currentLocation) {
+        this.currentLocation = currentLocation;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCurrentLocation() {
+        return currentLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCurrentLocation(String currentLocation) {
+        this.currentLocation = currentLocation;
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("location", location);
+        result.put("currentLocation", currentLocation);
         return result;
     }
 
