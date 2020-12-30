@@ -9,5 +9,13 @@
         android:id="@+id/locationMappingFragment"
         android:name="app.dushyant30suthar.locationtracking.client.consumer.LocationMappingFragment"
         android:label="LocationMappingFragment"
-        tools:layout="@layout/fragment_location_mapping" />
+        tools:layout="@layout/fragment_location_mapping">
+        <action
+            android:id="@+id/action_locationMappingFragment_to_onboardingActivity2"
+            app:destination="@id/onboardingActivity2" />
+    </fragment>
+    <activity
+        android:id="@+id/onboardingActivity2"
+        android:name="app.dushyant30suthar.locationtracking.client.onboarding.OnboardingActivity"
+        android:label="OnboardingActivity" />
 </navigation>
