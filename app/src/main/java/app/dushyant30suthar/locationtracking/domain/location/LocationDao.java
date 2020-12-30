@@ -20,7 +20,7 @@ public class LocationDao implements ValueEventListener {
 
     private final String currentUser;
 
-    private OnLocationUpdateListener onLocationUpdateListener;
+    private OnUsersLocationUpdateListener onUsersLocationUpdateListener;
 
     public LocationDao() {
         AuthenticationManager authenticationManager = null;
@@ -44,13 +44,13 @@ public class LocationDao implements ValueEventListener {
      * If there is any change in group such as new user is added to the group or any user has
      * updated it's location then we would deliver the lastest data for all of the users
      * which are currently being shown on the screen.*/
-    public void addOnLocationUpdateListener(OnLocationUpdateListener onLocationUpdateListener) {
-        this.onLocationUpdateListener = onLocationUpdateListener;
+    public void addOnLocationUpdateListener(OnUsersLocationUpdateListener onUsersLocationUpdateListener) {
+        this.onUsersLocationUpdateListener = onUsersLocationUpdateListener;
         databaseReference.addValueEventListener(this);
     }
 
     public void removeOnLocationUpdateListener() {
-        this.onLocationUpdateListener = null;
+        this.onUsersLocationUpdateListener = null;
         databaseReference.removeEventListener(this);
     }
 
@@ -65,7 +65,7 @@ public class LocationDao implements ValueEventListener {
             userList.add(user);
         }
 
-        onLocationUpdateListener.onLocationUpdate(userList);
+        onUsersLocationUpdateListener.onUsersLocationUpdate(userList);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class LocationDao implements ValueEventListener {
 
     }
 
-    interface OnLocationUpdateListener {
-        void onLocationUpdate(List<User> userList);
+    public interface OnUsersLocationUpdateListener {
+        void onUsersLocationUpdate(List<User> userList);
     }
 }
