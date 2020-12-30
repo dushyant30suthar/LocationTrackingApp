@@ -21,7 +21,7 @@ public class LocationTrackerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        locationTracker = LocationTracker.getInstance();
+        locationTracker = LocationTracker.getInstance(this, () -> locationTracker.startTracking());
         return START_STICKY;
     }
 
@@ -32,11 +32,12 @@ public class LocationTrackerService extends Service {
 
     @Override
     public void onDestroy() {
+        locationTracker.stopTracking();
         super.onDestroy();
     }
 
     public boolean isLocationTrackingOngoing() {
-        return locationTracker.getLocationTrackerState() == LocationTracker.State.ONGOING;
+        return locationTracker.getLocationTrackerCurrentState() == LocationTracker.State.ONGOING;
     }
 
 
