@@ -128,7 +128,7 @@ public class LocationMappingFragment extends Fragment implements LocationDao.OnU
                 if (attachedMarkerList.get(i) == null) {
                     attachedMarkerList.put(i, googleMap.addMarker(new MarkerOptions().position(userLocation)));
                 }
-                animateMarker(attachedMarkerList.get(i), userLocation, true);
+                animateMarker(attachedMarkerList.get(i), userLocation, false);
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
             }
         }
