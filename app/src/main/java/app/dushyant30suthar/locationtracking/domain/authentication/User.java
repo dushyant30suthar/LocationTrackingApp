@@ -8,28 +8,39 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 public class User {
-    String currentLocation;
+    double latitude;
+    double longitude;
 
     public User() {
 
     }
 
-    public User(String currentLocation) {
-        this.currentLocation = currentLocation;
+    public User(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public String getCurrentLocation() {
-        return currentLocation;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setCurrentLocation(String currentLocation) {
-        this.currentLocation = currentLocation;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("currentLocation", currentLocation);
+        result.put("latitude", latitude);
+        result.put("longitude", longitude);
         return result;
     }
 

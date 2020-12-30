@@ -56,7 +56,7 @@ public class AuthenticationManager {
      * deleting the user after it stops sharing location.*/
     public void connectToGroup(OnConnectionStateChangeListener onConnectionStateChangeListener) {
         currentUserId = databaseReference.push().getKey();
-        User user = new User("");
+        User user = new User();
 
         Map<String, Object> postValues = user.toMap();
         Map<String, Object> childUpdates = new HashMap<>();

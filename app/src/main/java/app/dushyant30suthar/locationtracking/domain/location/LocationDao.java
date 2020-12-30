@@ -35,7 +35,7 @@ public class LocationDao implements ValueEventListener {
     }
 
     public void updateLocation(Location location) {
-        databaseReference.child(currentUser).child("currentLocation").setValue(location.toString());
+        databaseReference.child(currentUser).setValue(new User(location.getLatitude(), location.getLongitude()));
     }
 
     /*
